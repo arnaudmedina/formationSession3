@@ -1,64 +1,111 @@
 package donnees;
+import javax.persistence.*;
 
+@NamedQueries({ @NamedQuery(name = "Ville.FindAll", query = "SELECT v FROM Ville v "),
+		@NamedQuery(name = "Ville.FindByName", query = "SELECT v FROM Ville v WHERE v.nom = :nom"),
+		@NamedQuery(name = "Ville.FindDoublon", query = "SELECT v FROM Ville v WHERE v.nom = :nom AND v.latitude = :lat AND v.longitude = :long") })
+
+@Entity
+@Table(name = "CITIES")
 public class Ville {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
+	private long id;
 
-	private String nomVille;
+	@Column(name = "NAME")
+	private String nom;
+
+	@Column(name = "LATITUDE")
 	private double latitude;
+
+	@Column(name = "LONGITUDE")
 	private double longitude;
 
-	public Ville(String nomVille, double latitude, double longitude) {
-		this.nomVille = nomVille;
-		this.latitude = latitude;
-		this.longitude = longitude;
+	public Ville() {
 	}
 
-	/**
-	 * @return the nomVille
-	 */
-	public String getNomVille() {
-		return nomVille;
+	public Ville(String nom, double latitude, double longitude) {
+		setNom(nom);
+		setLatitude(latitude);
+		setLongitude(longitude);
 	}
 
-	/**
-	 * @param nomVille
-	 *            the nomVille to set
-	 */
-	public void setNomVille(String nomVille) {
-		this.nomVille = nomVille;
+	public Ville(long id, String nom, double latitude, double longitude) {
+		this(nom, latitude, longitude);
+		setId(id);
 	}
 
-	/**
-	 * @return the latitude
-	 */
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
 	public double getLatitude() {
 		return latitude;
 	}
 
-	/**
-	 * @param latitude
-	 *            the latitude to set
-	 */
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
-	/**
-	 * @return the longitude
-	 */
 	public double getLongitude() {
 		return longitude;
 	}
 
-	/**
-	 * @param longitude
-	 *            the longitude to set
-	 */
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
 	public String toString() {
-		return this.nomVille + "\t - lat : " + this.getLatitude() + "\t - lon : " + this.getLongitude();
+		return (getNom() + " : " + getLatitude() + " , " + getLongitude());
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		long temp;
+		temp = Double.doubleToLongBits(latitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(longitude);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Ville other = (Ville) obj;
+		if (id != other.id)
+			return false;
+		if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
+			return false;
+		if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(other.longitude))
+			return false;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		return true;
+	}
 }
