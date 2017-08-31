@@ -20,6 +20,7 @@ public class StatefulServlet extends GenericServlet {
 
 	@Override
 	public synchronized void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+		response.getWriter().println(HelloServer.enTete());
 		if (fromAToB) {
 			if (counterA > 0) {
 				counterB = slowTransfert(counterB, 1);

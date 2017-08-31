@@ -11,6 +11,7 @@ public class HelloGenericServlet extends GenericServlet {
 
 	@Override
 	public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+		response.getWriter().println(HelloServer.enTete());
 		response.getWriter().println("\n\nHelloGenericServlet vous dit bonjour !\n" + "J'ai bien reçu votre requête :\n" + request);
 
 	}
