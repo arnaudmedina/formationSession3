@@ -57,4 +57,9 @@ public class VilleJpaDao  implements VilleDao {
 	public List<Ville> toutesLesVilles(){
 		return (List<Ville>) entityManager.createNamedQuery("Ville.FindAll").getResultList();
 	}
+	
+	public List<Ville> partieDeToutesLesVilles(int debut, int nbreItems){
+		return (List<Ville>) entityManager.createNamedQuery("Ville.FindPartOfAll").setParameter("debut", debut)
+				.setParameter("nbreItems", nbreItems).getResultList();
+	}
 }

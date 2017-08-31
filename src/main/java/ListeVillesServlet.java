@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -20,38 +21,30 @@ public class ListeVillesServlet extends HttpServlet {
 		ArrayList<Ville> listeVilles = (ArrayList<Ville>) villeJpaDao.toutesLesVilles();
 
 		response.setStatus(HttpServletResponse.SC_OK);
-		getParams(request);
-		
-		response.getWriter().println("<h2>Liste des villes dans la base</h2>");
-		for (Ville maVille : listeVilles) {
-			response.getWriter().println(maVille + "<br>");
-		}
-	}
-
-	private static String arrayToString(String[] strs) {
-		String res = "";
-		for (String str : strs) {
-			res += str + "\n";
-		}
-		return res;
-	}
-
-	private static String getParams(HttpServletRequest request) {
-		StringBuilder res = new StringBuilder();
 		int itemEnCours = 0;
 		int nbItems = 10;
 		int itemDebut = 1;
 
-		if (request.getParameterMap().containsKey("start"))
-			itemDebut = Integer.valueOf(request.getParameterMap().get("start").toString());
+		// On parcourt les paramètres pour prendre en compte l'item de début et nbItems
+		for (Enumeration<String> e = request.getParameterNames(); e.hasMoreElements();) {
 
-		if (request.getParameterMap().containsKey("limit"))
-			nbItems = Integer.valueOf(request.getParameterMap().get("limit").toString());
+			String name = (String) e.nextElement();
+			String[] values = request.getParameterValues(name);
 
-		for (Map.Entry<String, String[]> kv : request.getParameterMap().entrySet()) {
-			if ((itemEnCours > itemDebut) && (itemEnCours < nbItems + itemDebut))
-				res.append(kv.getKey() + ":" + arrayToString(kv.getValue()));
+			for (int i = 0; i < values.length; i++) {
+				response.getWriter().println(name + ":" + values[i] + "<br/>");
+				if ("start".equals(name))
+					itemDebut = Integer.valueOf(values[i]);
+				if ("limit".equals(name))
+					nbItems = Integer.valueOf(values[i]);
+			}
 		}
-		return res.toString();
+		
+		response.getWriter().println("<h2>Liste des villes dans la base</h2>");
+		for (Ville maVille : listeVilles) {
+			itemEnCours++;
+			if ((itemEnCours >= itemDebut) && (itemEnCours <= nbItems + itemDebut - 1))
+				response.getWriter().println(maVille + "<br>");
+		}
 	}
 }
