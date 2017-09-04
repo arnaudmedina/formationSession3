@@ -10,27 +10,55 @@ import javax.servlet.http.HttpServletResponse;
 public class FormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	// Traitement du Get sur le formulaire de login
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// le code html du formulaire est dans un fichier formLogin.html
-		String fichier ="src/main/forms/formLogin.html";
-		response.getWriter().println(HelloServer.enTete());
-		response.getWriter().println("<h2>Formulaire de login</h2>");
+		// le code html du formulaire est dans un fichier .html
+		String fichier = "src/main/forms/formVille.html";
 		
-		//lecture du fichier texte	
-		try{
-			BufferedReader br=new BufferedReader(new FileReader(fichier)); 
+		// lecture du fichier html de formulaire
+		String formulaire = lireFichier(fichier);
+
+		// lecture des paramètres mode et id
+		
+		
+		// On va renseigner les champs du formulaire
+		
+		// Cas CREA
+		formulaire.replaceFirst("value='valMode'", "value='CREA'");
+		formulaire.replaceFirst("value='valIdVille'", "value=''");
+		formulaire.replaceFirst("value='valNomVille'", "value='nom de la ville'");
+		formulaire.replaceFirst("value='valLongitude'", "value='longitude'");
+		formulaire.replaceFirst("value='valLatitude'", "value='latitude'");
+		
+		// Cas Modification
+		
+		// On envoie un en-tête
+		response.getWriter().println(HelloServer.enTete());
+		
+		// On envoie un titre
+		response.getWriter().println("<h2>Formulaire de création, modification, suppression de Ville</h2>");
+		
+		// On envoie le résultat dans l'objet reponse
+		response.getWriter().println(formulaire);
+	}
+
+	// Lit le fichier passé en paramètre et renvoie la chaîne
+	public String lireFichier(String fichier) {
+		String formulaire = "";
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(fichier));
 			String ligne;
-			while ((ligne=br.readLine())!=null){
-				response.getWriter().println(ligne);
+			while ((ligne = br.readLine()) != null) {
+				formulaire += ligne + "\n";
 			}
-			br.close(); 
-		}		
-		catch (Exception e){
+			br.close();
+		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-		
-//		response.getWriter().println("<h1>Mon Formulaire</h1><form action='./dynamic' method='post'> <div> <label for='nom'>Nom :</label>  <input type='text' id='name' name='name' /> </div> <div> Password: <input type='password' name='password'/> <br/><div class='button'> <button type='submit'>Envoyer votre message</button> </div>");
-		}
+		return formulaire;
+	}
+	
+
 }

@@ -30,14 +30,21 @@ public class HelloServer {
 
 	public static void main(String args[]) throws Exception {
 		Server server = new Server(9093);
-		ServletHandler handler = new ServletHandler();
-		server.setHandler(handler);
-		handler.addServletWithMapping(HelloGenericServlet.class, "/hello");
-		handler.addServletWithMapping(HelloGenericServlet.class, "/");
-		handler.addServletWithMapping(StatefulServlet.class, "/stateful");
-		handler.addServletWithMapping(FormServlet.class, "/form");
-		handler.addServletWithMapping(DynamicServlet.class, "/dynamic");
-		handler.addServletWithMapping(ListeVillesServlet.class, "/listeVilles");
+		ServletContextHandler context = new ServletContextHandler();
+		server.setHandler(context);
+		context.addServlet(ServletVilleMaj.class, "/villeMAJ");
+		context.addServlet(FormServlet.class, "/form");
+		context.addServlet(HelloGenericServlet.class, "/hello");
+		context.addServlet(HelloGenericServlet.class, "/");
+		context.addServlet(ListeVillesServlet.class, "/listeVilles");
+		context.addServlet(StatefulServlet.class, "/stateful");
+
+		String[] welcomeFiles = { "index.html" };
+		context.setWelcomeFiles(welcomeFiles);
+		context.setResourceBase("./src/main/resources/");
+		System.err.println("resourcesBase:" + context.getResourceBase());
+
+		server.setStopAtShutdown(true);
 
 		server.start();
 		server.join();
