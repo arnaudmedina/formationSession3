@@ -31,7 +31,7 @@ public class VilleJpaDao  implements VilleDao {
 
 	public Ville createVille(Ville ville) {
 		List<Ville> listeVillesDoublons;
-		listeVillesDoublons = findDoublon(ville.getNom(),ville.getLatitude(), ville.getLongitude());
+		listeVillesDoublons = findDoublon(ville.getNom(), ville.getLongitude(), ville.getLatitude());
 		if (listeVillesDoublons.size()==0){
 			entityManager.getTransaction().begin();
 			entityManager.persist(ville);
@@ -44,22 +44,30 @@ public class VilleJpaDao  implements VilleDao {
 		}
 	}
 
+	@Override
+	public Ville majVille(Ville ville) {
+		entityManager.getTransaction().begin();
+		entityManager.persist(ville);
+		entityManager.getTransaction().commit();
+		return ville;
+	}
+	
 	public List<Ville> findByNom(String nom) {
-		return (List<Ville>) entityManager.createNamedQuery("Ville.FindByName").setParameter("nom", nom)
+		return (List<Ville>) entityManager.createNamedQuery("Ville.FindByName", Ville.class).setParameter("nom", nom)
 				.getResultList();
 	}
 
 	public List<Ville> findDoublon(String nom, double latitude, double longitude) {
-		return (List<Ville>) entityManager.createNamedQuery("Ville.FindDoublon").setParameter("nom", nom)
+		return (List<Ville>) entityManager.createNamedQuery("Ville.FindDoublon", Ville.class).setParameter("nom", nom)
 				.setParameter("lat", latitude).setParameter("long", longitude).getResultList();
 	}
 
 	public List<Ville> toutesLesVilles(){
-		return (List<Ville>) entityManager.createNamedQuery("Ville.FindAll").getResultList();
+		return (List<Ville>) entityManager.createNamedQuery("Ville.FindAll", Ville.class).getResultList();
 	}
 	
 	public List<Ville> partieDeToutesLesVilles(int debut, int nbreItems){
-		return (List<Ville>) entityManager.createNamedQuery("Ville.FindPartOfAll").setParameter("debut", debut)
+		return (List<Ville>) entityManager.createNamedQuery("Ville.FindPartOfAll", Ville.class).setParameter("debut", debut)
 				.setParameter("nbreItems", nbreItems).getResultList();
 	}
 }
