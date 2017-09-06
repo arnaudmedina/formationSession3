@@ -53,7 +53,6 @@ public class ServletVilleMaj extends HttpServlet {
 			} else
 				System.err.println("Paramètre incomplet dans la chaine : " + myCurrParam[0] + "ignored.");
 		}
-
 		return valeurRetour;
 	}
 
@@ -109,21 +108,18 @@ public class ServletVilleMaj extends HttpServlet {
 
 		String id = "";
 		for (Enumeration<String> e = request.getParameterNames(); e.hasMoreElements();) {
-
 			String name = (String) e.nextElement();
 			String[] values = request.getParameterValues(name);
 
 			for (int i = 0; i < values.length; i++) {
 				response.getWriter().println(name + ":" + values[i] + "<br/>");
-				if ("id".equals(name))
+				if ("idVille".equals(name))
 					id = values[i];
-
 			}
 		}
-
 		// Suppression de l'identifiant passé en paramètre
 		VilleJpaDao villeJpaDao = new VilleJpaDao();
-		villeJpaDao.deleteVilleById(long.class.cast(id));
-
+		System.out.println("Id = " + id);
+		villeJpaDao.deleteVilleById(Long.parseLong(id));
 	}
 }

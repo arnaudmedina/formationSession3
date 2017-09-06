@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.VilleJpaDao;
 import donnees.Ville;
@@ -27,7 +28,16 @@ public class FormServlet extends HttpServlet {
 		// On envoie un titre
 		response.getWriter().println("<h2>Formulaire de création, modification, suppression de Ville</h2>");
 
+		HttpSession session = request.getSession(true);
+		Integer compteur = (Integer) session.getAttribute("test");
+		if (compteur == null)
+			compteur = 1;
+		else
+			compteur ++;
 		
+		session.setAttribute("test", compteur);
+		response.getWriter().println("Test :" + compteur + " - <a href='/logout'>logout</a><br>");
+
 		// lecture du fichier html de formulaire
 		String formulaire = lireFichier(fichier);
 
@@ -38,7 +48,7 @@ public class FormServlet extends HttpServlet {
 
 		// On parcourt les paramètres
 		response.getWriter().println("Paramètres : <br> \n");
-		
+
 		for (Enumeration<String> e = request.getParameterNames(); e.hasMoreElements();) {
 			String name = (String) e.nextElement();
 			String[] values = request.getParameterValues(name);
@@ -66,17 +76,18 @@ public class FormServlet extends HttpServlet {
 		if ("MOD".equals(mode)) {
 			formulaire = formulaire.replaceFirst("valMode", "MOD");
 			formulaire = formulaire.replaceFirst("valIdVille", id);
-			
+			formulaire = formulaire.replaceFirst("valIdVille", id);
+
 			// On charge les données de la ville passée en paramètre
 			VilleJpaDao villeJpaDao = new VilleJpaDao();
-			
+
 			Ville maVille = villeJpaDao.getVilleById(Long.parseUnsignedLong(id));
-			
+
 			formulaire = formulaire.replaceFirst("valNomVille", maVille.getNom());
 			formulaire = formulaire.replaceFirst("valLongitude", Double.toString(maVille.getLongitude()));
 			formulaire = formulaire.replaceFirst("valLatitude", Double.toString(maVille.getLatitude()));
 		}
-		
+
 		// On envoie le résultat dans l'objet reponse
 		response.getWriter().println(formulaire);
 	}

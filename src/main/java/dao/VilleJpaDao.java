@@ -26,7 +26,9 @@ public class VilleJpaDao  implements VilleDao {
 
 	public void deleteVilleById(long idRecherche) {
 		Ville ville = entityManager.find(Ville.class, idRecherche);
+		entityManager.getTransaction().begin();
 		entityManager.remove(ville);
+		entityManager.getTransaction().commit();
 	}
 
 	public Ville createVille(Ville ville) {

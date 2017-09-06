@@ -39,14 +39,16 @@ public class ListeVillesServlet extends HttpServlet {
 			}
 		}
 		
-		String urlImage = "http://www.clker.com/cliparts/0/6/8/6/11971488431079343407barretr_Pencil.svg.hi.png";
+		String urlImageMaj = "http://www.clker.com/cliparts/0/6/8/6/11971488431079343407barretr_Pencil.svg.hi.png";
+		String urlImagePoubelle = "http://data-cache.abuledu.org/512/poubelle-menagere-52d7d953.jpg";
 		response.getWriter().println("<h2>Liste des villes dans la base</h2>");
 		response.getWriter().println(HelloServer.integreHtml("src/main/barrePagination.html"));
 		for (Ville maVille : listeVilles) {
 			itemEnCours++;
 			if ((itemEnCours >= itemDebut) && (itemEnCours <= nbItems + itemDebut - 1)){
-				response.getWriter().println("<a href='/form?mode=MOD&id="+maVille.getId()+"'><img src='"+urlImage+"' width='16'></A> ");
+				response.getWriter().println("<a href='/form?mode=MOD&id="+maVille.getId()+"'><img src='"+urlImageMaj+"' width='16'></A> ");
 				response.getWriter().println(maVille + "<br>");
+				response.getWriter().println("<a href='/form?mode=MOD&id="+maVille.getId()+"'><img src='"+urlImagePoubelle+"' width='16'></A> ");
 			}
 		}
 	}
