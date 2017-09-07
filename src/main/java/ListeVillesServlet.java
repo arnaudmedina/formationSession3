@@ -15,6 +15,8 @@ public class ListeVillesServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+
 		// On envoie un en-tête html
 		response.setHeader("Content-Type","text/html");
 		

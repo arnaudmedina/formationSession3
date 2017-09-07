@@ -1,5 +1,6 @@
 package donnees;
 import javax.persistence.*;
+import static javax.persistence.AccessType.FIELD;
 
 @NamedQueries({ @NamedQuery(name = "Ville.FindAll", query = "SELECT v FROM Ville v "),
 		@NamedQuery(name = "Ville.FindByName", query = "SELECT v FROM Ville v WHERE v.nom = :nom"),
@@ -7,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "CITIES")
+@Access(FIELD)
 public class Ville {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

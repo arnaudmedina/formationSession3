@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import dao.VilleJpaDao;
 import donnees.Ville;
 
@@ -19,15 +21,27 @@ public class ListeVillesServletJson extends HttpServlet {
 		VilleJpaDao villeJpaDao = new VilleJpaDao();
 		ArrayList<Ville> listeVilles = (ArrayList<Ville>) villeJpaDao.toutesLesVilles();
 
+		String mode = "json";
+		
+		// On renvoie html ou json selon le type de requete
+		if ("text/html".equals(request.getHeader("Content-Type")))
+			mode="html";
+		
+		if ("application/json".equals(request.getHeader("Content-Type")))
+			mode = "json";
+		
+		if ("json".equals(mode) ){
 		response.setStatus(HttpServletResponse.SC_OK);
-		int itemEnCours = 0;
+		response.setHeader("Content-Type", "application/json");
+		}
+		
+		if ("html".equals(mode)  ){
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.setHeader("Content-Type","text/html");
+			}
+			
 		int nbItems = 10;
 		int itemDebut = 1;
-
-		response.setHeader("Content-Type","application/json");
-		
-		// On ouvre le Json
-		response.getWriter().print("[");
 
 		// On parcourt les paramètres pour prendre en compte l'item de début et
 		// nbItems
@@ -44,6 +58,19 @@ public class ListeVillesServletJson extends HttpServlet {
 					nbItems = Integer.valueOf(values[i]);
 			}
 		}
+		if ("html".equals(mode))
+			ecritJsonAlaMain(request, response, listeVilles, itemDebut, nbItems);
+		else
+			ecritJsonAvecGson(request, response, listeVilles, itemDebut, nbItems);
+	}
+
+	private void ecritJsonAlaMain(HttpServletRequest request, HttpServletResponse response,
+			ArrayList<Ville> listeVilles, int itemDebut, int nbItems) throws IOException {
+
+		int itemEnCours = 0;
+
+		// On ouvre le Json
+		response.getWriter().print("[");
 
 		for (Ville maVille : listeVilles) {
 			itemEnCours++;
@@ -59,5 +86,27 @@ public class ListeVillesServletJson extends HttpServlet {
 		}
 		// On ferme le Json
 		response.getWriter().print("]");
+	}
+
+	private void ecritJsonAvecGson(HttpServletRequest request, HttpServletResponse response,
+			ArrayList<Ville> listeVilles, int itemDebut, int nbItems) throws IOException {
+
+		int itemEnCours = 0;
+		ArrayList<Ville> listeVillesChoisies = new ArrayList<Ville>();
+
+		for (Ville maVille : listeVilles) {
+			itemEnCours++;
+			if ((itemEnCours >= itemDebut) && (itemEnCours <= nbItems + itemDebut - 1)) {
+				listeVillesChoisies.add(maVille);
+			}
+		}
+		ObjectMapper mapper = new ObjectMapper();
+
+		// Object to JSON in file
+		// mapper.writeValue(response.getOutputStream(), listeVillesChoisies);
+
+		// Object to JSON in String
+		String jsonInString = mapper.writeValueAsString(listeVillesChoisies);
+		response.getWriter().print(jsonInString);
 	}
 }

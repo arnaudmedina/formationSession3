@@ -13,10 +13,10 @@
 				value="jdbc:h2:tcp://localhost/~/h2/h2-Simplon" />
 			<property name="javax.persistence.jdbc.user" value="sa" />
 			<property name="javax.persistence.jdbc.password" value="" />
-			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.use_sql_comments" value="true" />
+			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
 		</properties>
 	</persistence-unit>
 </persistence>
