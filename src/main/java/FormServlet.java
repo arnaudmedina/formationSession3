@@ -19,6 +19,9 @@ public class FormServlet extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// On envoie le header HTML
+		response.setHeader("Content-Type","text/html");
+		
 		// le code html du formulaire est dans un fichier .html
 		String fichier = "src/main/forms/formVille.html";
 
@@ -90,6 +93,10 @@ public class FormServlet extends HttpServlet {
 
 		// On envoie le résultat dans l'objet reponse
 		response.getWriter().println(formulaire);
+
+		String fichierPidDePage = "src/main/footer.html";
+		response.getWriter().println(lireFichier(fichierPidDePage));
+
 	}
 
 	// Lit le fichier passé en paramètre et renvoie la chaîne

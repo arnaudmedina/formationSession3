@@ -1,8 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-import javax.servlet.http.HttpSession;
-
 import org.eclipse.jetty.server.*;
 import org.eclipse.jetty.servlet.*;
 
@@ -41,6 +39,7 @@ public class HelloServer {
 		context.addServlet(HelloGenericServlet.class, "/hello");
 		context.addServlet(HelloGenericServlet.class, "/");
 		context.addServlet(ListeVillesServlet.class, "/listeVilles");
+		context.addServlet(ListeVillesServletJson.class, "/listeVillesJson");
 		context.addServlet(StatefulServlet.class, "/stateful");
 		context.addServlet(ServletLogout.class, "/logout");
 

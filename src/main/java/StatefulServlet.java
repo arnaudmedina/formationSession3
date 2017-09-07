@@ -20,6 +20,9 @@ public class StatefulServlet extends GenericServlet {
 
 	@Override
 	public synchronized void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+		// On envoie un en-tête html
+		response.setContentType("text/html");
+		
 		response.getWriter().println(HelloServer.enTete());
 		if (fromAToB) {
 			if (counterA > 0) {

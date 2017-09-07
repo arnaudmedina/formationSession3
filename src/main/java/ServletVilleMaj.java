@@ -59,6 +59,8 @@ public class ServletVilleMaj extends HttpServlet {
 	// Exemple de traitement d'une requête GET
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// On envoie un en-tête html
+		response.setHeader("Content-Type","text/html");
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.getWriter().println("Hello from HelloServlet !\n" + "got:\n" + request);
 	}
@@ -66,6 +68,8 @@ public class ServletVilleMaj extends HttpServlet {
 	// Exemple de traitement d'une requête POST
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// On envoie un en-tête html
+		response.setHeader("Content-Type","text/html");
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.getWriter().println(HelloServer.enTete());
 		response.getWriter().println("On traite le POST pour la ville !\n" + "requête reçue : \n" + request +
@@ -88,7 +92,8 @@ public class ServletVilleMaj extends HttpServlet {
 		if ((id == 0) || ("CREA".equals(mode))) {
 			maVille = new Ville(id, nom, latitude, longitude);
 			villeJpaDao.createVille(maVille);
-		} else {
+		} 
+		if  ((id != 0) && ("MOD".equals(mode))){
 			maVille = villeJpaDao.getVilleById(id);
 			maVille.setNom(nom);
 			maVille.setLatitude(latitude);
@@ -101,6 +106,7 @@ public class ServletVilleMaj extends HttpServlet {
 	@Override
 	public void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setHeader("Content-Type","text/html");
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.getWriter().println("Delete from HelloServlet !\n" + "got:\n" + request +
 		// "\n body:\n"+getBody(request.getReader())+
