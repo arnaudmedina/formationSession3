@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+
+	version="3.0">
+
+	<display-name>Hello Server</display-name>
+
+	<description>Cette première application web sous Tomcat est un exemple
+		permettant de présenter le déploiement d'une webapp.
+	</description>
+
+	<error-page>
+		<location>/generalError</location>
+	</error-page>
+
+	<context-param>
+		<param-name>applicationName</param-name>
+		<param-value>HelloServer</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>ServletVilleMaj</servlet-name>
+		<servlet-class>ServletVilleMaj</servlet-class>
+		<!-- <description>Mise à jour d 'une ville.</description> -->
+	</servlet>
+
+	<servlet>
+		<servlet-name>ListeVillesServlet</servlet-name>
+		<servlet-class>ListeVillesServlet</servlet-class>
+		<!-- <description>Servlet listeVilles.</description> -->
+	</servlet>
+	<servlet>
+		<servlet-name>FormServlet</servlet-name>
+		<servlet-class>FormServlet</servlet-class>
+		<!-- <description>Formulaire d 'une ville.</description> -->
+	</servlet>
+	<servlet>
+		<servlet-name>HelloGenericServlet</servlet-name>
+		<servlet-class>HelloGenericServlet</servlet-class>
+		<!-- <description>Servlet bonjour.</description> -->
+	</servlet>
+
+
+	<servlet>
+		<servlet-name>ListeVillesServletJson</servlet-name>
+		<servlet-class>ListeVillesServletJson</servlet-class>
+		<!-- <description>Servlet ListeVillesServletJson.</description> -->
+
+	</servlet>
+	<servlet>
+		<servlet-name>StatefulServlet</servlet-name>
+		<servlet-class>StatefulServlet</servlet-class>
+		<!-- <description>Servlet StatefulServlet.</description> -->
+
+	</servlet>
+	<servlet>
+		<servlet-name>ServletLogout</servlet-name>
+		<servlet-class>ServletLogout</servlet-class>
+		<!-- <description>servlet ServletLogout.</description> -->
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ServletVilleMaj</servlet-name>
+		<url-pattern>/villeMAJ</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ListeVillesServlet</servlet-name>
+		<url-pattern>/listeVilles</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>FormServlet</servlet-name>
+		<url-pattern>/form</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>HelloGenericServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>HelloGenericServlet</servlet-name>
+		<url-pattern>/hello</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>StatefulServlet</servlet-name>
+		<url-pattern>/stateful</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ListeVillesServletJson</servlet-name>
+		<url-pattern>/listeVillesJson</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletLogout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>

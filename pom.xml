@@ -4,7 +4,7 @@
 	<groupId>co.simplon</groupId>
 	<artifactId>formation-session-3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>serveurs</name>
+	<name>HelloServer</name>
 	<dependencies>
 
 		<dependency>
@@ -38,4 +38,5 @@
 		</dependency>
 
 	</dependencies>
+	<packaging>war</packaging>
 </project>
