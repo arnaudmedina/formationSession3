@@ -32,30 +32,31 @@
 		<servlet-class>ListeVillesServlet</servlet-class>
 		<!-- <description>Servlet listeVilles.</description> -->
 	</servlet>
+	
 	<servlet>
 		<servlet-name>FormServlet</servlet-name>
 		<servlet-class>FormServlet</servlet-class>
 		<!-- <description>Formulaire d 'une ville.</description> -->
 	</servlet>
+	
 	<servlet>
 		<servlet-name>HelloGenericServlet</servlet-name>
 		<servlet-class>HelloGenericServlet</servlet-class>
 		<!-- <description>Servlet bonjour.</description> -->
 	</servlet>
 
-
 	<servlet>
 		<servlet-name>ListeVillesServletJson</servlet-name>
 		<servlet-class>ListeVillesServletJson</servlet-class>
 		<!-- <description>Servlet ListeVillesServletJson.</description> -->
-
 	</servlet>
+	
 	<servlet>
 		<servlet-name>StatefulServlet</servlet-name>
 		<servlet-class>StatefulServlet</servlet-class>
 		<!-- <description>Servlet StatefulServlet.</description> -->
-
 	</servlet>
+	
 	<servlet>
 		<servlet-name>ServletLogout</servlet-name>
 		<servlet-class>ServletLogout</servlet-class>
@@ -75,11 +76,6 @@
 	<servlet-mapping>
 		<servlet-name>FormServlet</servlet-name>
 		<url-pattern>/form</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>HelloGenericServlet</servlet-name>
-		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>

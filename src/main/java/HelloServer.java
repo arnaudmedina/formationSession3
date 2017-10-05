@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 
 import org.eclipse.jetty.server.*;
 import org.eclipse.jetty.servlet.*;
@@ -8,8 +9,8 @@ public class HelloServer {
 
 	public static String enTete() {
 		String retour;
-		retour = integreHtml("src/main/entete.html");
-		retour += integreHtml("src/main/menu.html");
+		retour = integreHtml("views/entete.html");
+		retour += integreHtml("views/menu.html");
 		return retour;
 	}
 
@@ -17,14 +18,15 @@ public class HelloServer {
 		String retour = "";
 		// lecture du fichier texte
 		try {
-			BufferedReader br = new BufferedReader(new FileReader(nomFichier));
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream(nomFichier)));
 			String ligne;
 			while ((ligne = br.readLine()) != null) {
 				retour += ligne;
 			}
 			br.close();
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			e.printStackTrace();
 		}
 		return retour;
 	}
@@ -45,7 +47,7 @@ public class HelloServer {
 
 		String[] welcomeFiles = { "index.html" };
 		context.setWelcomeFiles(welcomeFiles);
-		context.setResourceBase("./src/main/resources/");
+		context.setResourceBase("./src/main/webapp/WEB-INF/");
 		System.err.println("resourcesBase:" + context.getResourceBase());
 
 		server.setStopAtShutdown(true);

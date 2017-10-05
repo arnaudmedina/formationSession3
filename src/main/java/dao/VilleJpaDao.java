@@ -46,13 +46,6 @@ public class VilleJpaDao  implements VilleDao {
 		}
 	}
 
-	@Override
-	public Ville majVille(Ville ville) {
-		entityManager.getTransaction().begin();
-		entityManager.persist(ville);
-		entityManager.getTransaction().commit();
-		return ville;
-	}
 	
 	public List<Ville> findByNom(String nom) {
 		return (List<Ville>) entityManager.createNamedQuery("Ville.FindByName", Ville.class).setParameter("nom", nom)
@@ -71,5 +64,12 @@ public class VilleJpaDao  implements VilleDao {
 	public List<Ville> partieDeToutesLesVilles(int debut, int nbreItems){
 		return (List<Ville>) entityManager.createNamedQuery("Ville.FindPartOfAll", Ville.class).setParameter("debut", debut)
 				.setParameter("nbreItems", nbreItems).getResultList();
+	}
+
+	public Ville majVille(Ville ville) {
+		entityManager.getTransaction().begin();
+		entityManager.persist(ville);
+		entityManager.getTransaction().commit();
+		return ville;
 	}
 }

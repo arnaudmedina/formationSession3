@@ -23,7 +23,7 @@ public class FormServlet extends HttpServlet {
 		response.setHeader("Content-Type","text/html");
 		
 		// le code html du formulaire est dans un fichier .html
-		String fichier = "src/main/forms/formVille.html";
+		String fichier = "./views/forms/formVille.html";
 
 		// On envoie un en-tête
 		response.getWriter().println(HelloServer.enTete());
@@ -42,7 +42,7 @@ public class FormServlet extends HttpServlet {
 		response.getWriter().println("Test :" + compteur + " - <a href='/logout'>logout</a><br>");
 
 		// lecture du fichier html de formulaire
-		String formulaire = lireFichier(fichier);
+		String formulaire = HelloServer.integreHtml(fichier);
 
 		// lecture des paramètres mode et id
 
@@ -94,24 +94,10 @@ public class FormServlet extends HttpServlet {
 		// On envoie le résultat dans l'objet reponse
 		response.getWriter().println(formulaire);
 
-		String fichierPidDePage = "src/main/footer.html";
-		response.getWriter().println(lireFichier(fichierPidDePage));
+		String fichierPidDePage = "./views/footer.html";
+		response.getWriter().println(HelloServer.integreHtml(fichierPidDePage));
 
 	}
 
-	// Lit le fichier passé en paramètre et renvoie la chaîne
-	public String lireFichier(String fichier) {
-		String formulaire = "";
-		try {
-			BufferedReader br = new BufferedReader(new FileReader(fichier));
-			String ligne;
-			while ((ligne = br.readLine()) != null) {
-				formulaire += ligne + "\n";
-			}
-			br.close();
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
-		return formulaire;
-	}
+	
 }
