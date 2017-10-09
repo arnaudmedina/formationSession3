@@ -46,7 +46,6 @@ public class VilleJpaDao  implements VilleDao {
 		}
 	}
 
-	
 	public List<Ville> findByNom(String nom) {
 		return (List<Ville>) entityManager.createNamedQuery("Ville.FindByName", Ville.class).setParameter("nom", nom)
 				.getResultList();

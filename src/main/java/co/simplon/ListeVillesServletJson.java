@@ -1,3 +1,4 @@
+package co.simplon;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -22,24 +23,24 @@ public class ListeVillesServletJson extends HttpServlet {
 		ArrayList<Ville> listeVilles = (ArrayList<Ville>) villeJpaDao.toutesLesVilles();
 
 		String mode = "json";
-		
+
 		// On renvoie html ou json selon le type de requete
 		if ("text/html".equals(request.getHeader("Content-Type")))
 			mode="html";
-		
+
 		if ("application/json".equals(request.getHeader("Content-Type")))
 			mode = "json";
-		
+
 		if ("json".equals(mode) ){
-		response.setStatus(HttpServletResponse.SC_OK);
-		response.setHeader("Content-Type", "application/json");
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.setHeader("Content-Type", "application/json");
 		}
-		
+
 		if ("html".equals(mode)  ){
 			response.setStatus(HttpServletResponse.SC_OK);
 			response.setHeader("Content-Type","text/html");
-			}
-			
+		}
+
 		int nbItems = 10;
 		int itemDebut = 1;
 

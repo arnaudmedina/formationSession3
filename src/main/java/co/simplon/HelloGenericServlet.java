@@ -1,3 +1,4 @@
+package co.simplon;
 import java.io.IOException;
 import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;

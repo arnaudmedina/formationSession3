@@ -23,45 +23,63 @@
 
 	<servlet>
 		<servlet-name>ServletVilleMaj</servlet-name>
-		<servlet-class>ServletVilleMaj</servlet-class>
+		<servlet-class>co.simplon.ServletVilleMaj</servlet-class>
 		<!-- <description>Mise à jour d 'une ville.</description> -->
 	</servlet>
 
 	<servlet>
 		<servlet-name>ListeVillesServlet</servlet-name>
-		<servlet-class>ListeVillesServlet</servlet-class>
+		<servlet-class>co.simplon.ListeVillesServlet</servlet-class>
 		<!-- <description>Servlet listeVilles.</description> -->
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>FormServlet</servlet-name>
-		<servlet-class>FormServlet</servlet-class>
+		<servlet-class>co.simplon.FormServlet</servlet-class>
 		<!-- <description>Formulaire d 'une ville.</description> -->
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>HelloGenericServlet</servlet-name>
-		<servlet-class>HelloGenericServlet</servlet-class>
+		<servlet-class>co.simplon.HelloGenericServlet</servlet-class>
 		<!-- <description>Servlet bonjour.</description> -->
 	</servlet>
 
 	<servlet>
 		<servlet-name>ListeVillesServletJson</servlet-name>
-		<servlet-class>ListeVillesServletJson</servlet-class>
+		<servlet-class>co.simplon.ListeVillesServletJson</servlet-class>
 		<!-- <description>Servlet ListeVillesServletJson.</description> -->
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>StatefulServlet</servlet-name>
-		<servlet-class>StatefulServlet</servlet-class>
+		<servlet-class>co.simplon.StatefulServlet</servlet-class>
 		<!-- <description>Servlet StatefulServlet.</description> -->
 	</servlet>
-	
+
 	<servlet>
 		<servlet-name>ServletLogout</servlet-name>
-		<servlet-class>ServletLogout</servlet-class>
+		<servlet-class>co.simplon.ServletLogout</servlet-class>
 		<!-- <description>servlet ServletLogout.</description> -->
 	</servlet>
+
+	<servlet>
+		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+	</servlet>
+
+
+	<!-- <servlet> <servlet-name>jaxrs</servlet-name> <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class> 
+		<description>servlet ServletLogout.</description> <init-param> <param-name>com.sun.jersey.config.property.packages</param-name> 
+		<param-value>co.simplon</param-value> </init-param> <load-on-startup>1</load-on-startup> 
+		</servlet> -->
+
+	<!-- <servlet-mapping> <servlet-name>jaxrs</servlet-name> <url-pattern>/jaxrs/*</url-pattern> 
+		</servlet-mapping> -->
+
+	<servlet-mapping>
+		<servlet-name>javax.ws.rs.core.Application</servlet-name>
+		<url-pattern>/jaxrs/*</url-pattern>
+	</servlet-mapping>
 
 	<servlet-mapping>
 		<servlet-name>ServletVilleMaj</servlet-name>

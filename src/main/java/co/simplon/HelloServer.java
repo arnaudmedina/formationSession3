@@ -1,5 +1,5 @@
+package co.simplon;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 
 import org.eclipse.jetty.server.*;
@@ -9,8 +9,8 @@ public class HelloServer {
 
 	public static String enTete() {
 		String retour;
-		retour = integreHtml("views/entete.html");
-		retour += integreHtml("views/menu.html");
+		retour = integreHtml("entete.html");
+		retour += integreHtml("menu.html");
 		return retour;
 	}
 

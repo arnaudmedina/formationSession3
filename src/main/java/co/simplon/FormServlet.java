@@ -1,13 +1,14 @@
+package co.simplon;
 import java.io.IOException;
 import java.util.Enumeration;
-import java.io.BufferedReader;
-import java.io.FileReader;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import dao.VilleJpaDao;
 import donnees.Ville;
@@ -16,14 +17,17 @@ public class FormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// Traitement du Get sur le formulaire de login
+	private static Logger logger = (Logger) LoggerFactory.getLogger(FormServlet.class);
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		logger.info("Nous passons par le doGet de FormServlet :-)");
 		// On envoie le header HTML
 		response.setHeader("Content-Type","text/html");
-		
+
 		// le code html du formulaire est dans un fichier .html
-		String fichier = "./views/forms/formVille.html";
+		String fichier = "formVille.html";
 
 		// On envoie un en-tête
 		response.getWriter().println(HelloServer.enTete());
@@ -37,7 +41,7 @@ public class FormServlet extends HttpServlet {
 			compteur = 1;
 		else
 			compteur ++;
-		
+
 		session.setAttribute("test", compteur);
 		response.getWriter().println("Test :" + compteur + " - <a href='/logout'>logout</a><br>");
 
@@ -94,10 +98,10 @@ public class FormServlet extends HttpServlet {
 		// On envoie le résultat dans l'objet reponse
 		response.getWriter().println(formulaire);
 
-		String fichierPidDePage = "./views/footer.html";
-		response.getWriter().println(HelloServer.integreHtml(fichierPidDePage));
+		String fichierPiedDePage = "footer.html";
+		response.getWriter().println(HelloServer.integreHtml(fichierPiedDePage));
 
 	}
 
-	
+
 }

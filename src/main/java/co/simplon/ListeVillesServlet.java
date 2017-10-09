@@ -1,3 +1,4 @@
+package co.simplon;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -5,15 +6,21 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import dao.VilleJpaDao;
 import donnees.Ville;
 
 public class ListeVillesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static Logger logger = (Logger) LoggerFactory.getLogger(ListeVillesServlet.class);
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		logger.info("Nous passons par le doGet de listeVillesServlet :-)");
 		// On envoie un en-tête html
 		response.setHeader("Content-Type","text/html");
 		
@@ -43,7 +50,7 @@ public class ListeVillesServlet extends HttpServlet {
 		String urlImageMaj = "http://www.clker.com/cliparts/0/6/8/6/11971488431079343407barretr_Pencil.svg.hi.png";
 		String urlImagePoubelle = "http://data-cache.abuledu.org/512/poubelle-menagere-52d7d953.jpg";
 		response.getWriter().println("<h2>Liste des villes dans la base</h2>");
-		response.getWriter().println(HelloServer.integreHtml("./views/barrePagination.html"));
+		response.getWriter().println(HelloServer.integreHtml("barrePagination.html"));
 		for (Ville maVille : listeVilles) {
 			itemEnCours++;
 			if ((itemEnCours >= itemDebut) && (itemEnCours <= nbItems + itemDebut - 1)){
